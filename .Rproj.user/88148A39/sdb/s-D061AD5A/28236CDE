@@ -1,0 +1,22 @@
+{
+    "collab_server" : "",
+    "contents" : "---\ntitle: Assignment 1,2 & 3\nauthor: Luyolo Matutu\noutput: github_document\n---\n## Hello Octocat\ni love Octocat. She's the coolest cat in town.\n![]( https://dl.dropboxusercontent.com/u/11805474/painblogr/biostats/images/octocat.png)\n\n```{r, quick look, include=TRUE}\ndata(\"anscombe\")\ndim(anscombe)\nnames(anscombe)\nhead(anscombe, n=6)\ntail(anscombe, n=6)\nsummary(anscombe)\n\nknitr::opts_chunk$set(echo = TRUE)\n```\n\n## GitHub Documents\n\nThis is an R Markdown format used for publishing markdown documents to GitHub. When you click the **Knit** button all R code chunks are run and a markdown file (.md) suitable for publishing to GitHub is generated.\n\n## Including Code\n\nYou can include R code in the document as follows:\n\n```{r cars}\nsummary(cars)\n```\n\n## Including Plots\n\nYou can also embed plots, for example:\n\n```{r xy_plot, echo=FALSE, fig.height=8, fig.width=8, fig.align='center', fig.path='./figures/', fig.ext='svg'}\ndata(\"anscombe\")\nplot(x=anscombe$x1, y=anscombe$y1)\nabline(lm(y1 ~ x1, data = anscombe))\n\n```\n\nNote that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.\n",
+    "created" : 1469441370269.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "522266837",
+    "id" : "28236CDE",
+    "lastKnownWriteTime" : 1469441946,
+    "last_content_update" : 1469441946553,
+    "path" : "C:/Users/Wits-User/Desktop/stats assignment/README.Rmd",
+    "project_path" : "README.Rmd",
+    "properties" : {
+        "chunk_rendered_width" : "650",
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 1,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_markdown"
+}
