@@ -1,5 +1,5 @@
 ---
-title: Assignment 1,2 & 3
+title: Assignment 1, 2 & 3
 author: Luyolo Matutu
 output: github_document
 ---
@@ -26,19 +26,38 @@ This is an R Markdown format used for publishing markdown documents to GitHub. W
 
 You can include R code in the document as follows:
 
-```{r cars}
-summary(cars)
+```{r xy_plot, echo=FALSE, fig.height=8, fig.width=8, fig.align='center', fig.path='./figures/', fig.ext='svg'}
+library(dplyr)
+library(readr)
+library(tidyr)
+data("anscombe")
+plot(x=anscombe$x1, y=anscombe$y1)
+abline(lm(y1 ~ x1, data = anscombe))
 ```
 
 ## Including Plots
 
 You can also embed plots, for example:
 
-```{r xy_plot, echo=FALSE, fig.height=8, fig.width=8, fig.align='center', fig.path='./figures/', fig.ext='svg'}
-data("anscombe")
-plot(x=anscombe$x1, y=anscombe$y1)
-abline(lm(y1 ~ x1, data = anscombe))
-
+```{r data_import, echo=TRUE}
+path <- file.path('~', 'stats assignment', 'analgesic.csv')
+df <- data.frame('analgesic.csv')
+df <- read.csv('analgesic.csv')
 ```
 
+```{r data_summary, echo=TRUE}
+dim(df)
+names(df)
+head(df, n=6)
+tail(df, n=6)
+summary(df)
+```
+
+```{r data_tidy, echo=TRUE}
+library(tidyr)
+df_1 <- gather(df, key= Measurements, value= Value, Measurement_1, Measurement_2, Measurement_3, -ID)
+df_2 <- group_by(df_1, ID, Group)
+summarise(df_2, mean = mean(Value))
+
+```
 Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.

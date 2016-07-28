@@ -1,4 +1,4 @@
-Assignment 1,2 & 3
+Assignment 1, 2 & 3
 ================
 Luyolo Matutu
 
@@ -77,23 +77,108 @@ Including Code
 
 You can include R code in the document as follows:
 
-``` r
-summary(cars)
-```
+    ## 
+    ## Attaching package: 'dplyr'
 
-    ##      speed           dist       
-    ##  Min.   : 4.0   Min.   :  2.00  
-    ##  1st Qu.:12.0   1st Qu.: 26.00  
-    ##  Median :15.0   Median : 36.00  
-    ##  Mean   :15.4   Mean   : 42.98  
-    ##  3rd Qu.:19.0   3rd Qu.: 56.00  
-    ##  Max.   :25.0   Max.   :120.00
+    ## The following objects are masked from 'package:stats':
+    ## 
+    ##     filter, lag
+
+    ## The following objects are masked from 'package:base':
+    ## 
+    ##     intersect, setdiff, setequal, union
+
+<img src="./figures/xy_plot-1.svg" style="display: block; margin: auto;" />
 
 Including Plots
 ---------------
 
 You can also embed plots, for example:
 
-<img src="./figures/xy_plot-1.svg" style="display: block; margin: auto;" />
+``` r
+path <- file.path('~', 'stats assignment', 'analgesic.csv')
+df <- data.frame('analgesic.csv')
+df <- read.csv('analgesic.csv')
+```
+
+``` r
+dim(df)
+```
+
+    ## [1] 40  5
+
+``` r
+names(df)
+```
+
+    ## [1] "ID"            "Group"         "Measurement_1" "Measurement_2"
+    ## [5] "Measurement_3"
+
+``` r
+head(df, n=6)
+```
+
+    ##   ID     Group Measurement_1 Measurement_2 Measurement_3
+    ## 1  1 Analgesic            26            26            21
+    ## 2  2 Analgesic            29            26            23
+    ## 3  3 Analgesic            24            28            22
+    ## 4  4 Analgesic            25            22            24
+    ## 5  5 Analgesic            24            28            23
+    ## 6  6 Analgesic            22            23            26
+
+``` r
+tail(df, n=6)
+```
+
+    ##    ID   Group Measurement_1 Measurement_2 Measurement_3
+    ## 35 35 Placebo            17            21            15
+    ## 36 36 Placebo            19            17            15
+    ## 37 37 Placebo            14            19            13
+    ## 38 38 Placebo            17            19            13
+    ## 39 39 Placebo            11            20            18
+    ## 40 40 Placebo            15            18            12
+
+``` r
+summary(df)
+```
+
+    ##        ID              Group    Measurement_1   Measurement_2 
+    ##  Min.   : 1.00   Analgesic:20   Min.   :10.00   Min.   : 8.0  
+    ##  1st Qu.:10.75   Placebo  :20   1st Qu.:17.00   1st Qu.:17.0  
+    ##  Median :20.50                  Median :20.00   Median :20.0  
+    ##  Mean   :20.50                  Mean   :20.12   Mean   :20.7  
+    ##  3rd Qu.:30.25                  3rd Qu.:24.00   3rd Qu.:25.0  
+    ##  Max.   :40.00                  Max.   :30.00   Max.   :32.0  
+    ##  Measurement_3  
+    ##  Min.   :12.00  
+    ##  1st Qu.:16.00  
+    ##  Median :20.50  
+    ##  Mean   :20.52  
+    ##  3rd Qu.:24.25  
+    ##  Max.   :30.00
+
+``` r
+library(tidyr)
+df_1 <- gather(df, key= Measurements, value= Value, Measurement_1, Measurement_2, Measurement_3, -ID)
+df_2 <- group_by(df_1, ID, Group)
+summarise(df_2, mean = mean(Value))
+```
+
+    ## Source: local data frame [40 x 3]
+    ## Groups: ID [?]
+    ## 
+    ##       ID     Group     mean
+    ##    <int>    <fctr>    <dbl>
+    ## 1      1 Analgesic 24.33333
+    ## 2      2 Analgesic 26.00000
+    ## 3      3 Analgesic 24.66667
+    ## 4      4 Analgesic 23.66667
+    ## 5      5 Analgesic 25.00000
+    ## 6      6 Analgesic 23.66667
+    ## 7      7 Analgesic 26.66667
+    ## 8      8 Analgesic 23.33333
+    ## 9      9 Analgesic 22.66667
+    ## 10    10 Analgesic 24.00000
+    ## ..   ...       ...      ...
 
 Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
