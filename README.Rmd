@@ -61,3 +61,87 @@ summarise(df_2, mean = mean(Value))
 
 ```
 Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+# Chicken Weights
+
+## null hypothesis
+* chick weights are not dependent on the feed
+
+## alternative hypothesis
+* chick weights are dependent on the feed
+```{r data_tidy, echo=TRUE}
+# read chick weight
+x <- read.csv('chick-weights.csv')
+
+# tidy the data
+boxplot(x$weight ~ x$feed)
+
+# statistical test
+chickanova <- aov(weight~feed, data = x)
+summary(chickanova)
+```
+## underlying assumption for test:
+* trying to determine whether there are significant differences between the means of 3 or more unrelated groups
+
+## interpretation of the outcome
+* p<0.05, therefore reject the null hypothesis and accept the alternative hypothesis
+
+# The Hot Zone 
+## null hypothesis
+* H0: drinking contaminated water does not causes gastroenteritis
+
+## alternative hypothesis
+* H1: drinking contaminated water does cause gastroenteritis
+```{r data_tidy, echo=TRUE}
+# read outbreak of gastroenteritis
+x <- read.csv('gastroenteritis.csv')
+
+#tidy the data
+y <- xtabs(~Consumption + Outcome, data = x)
+y
+
+#plotting data
+barplot(y, beside = TRUE, ylab = 'water consumption', xlab = "clinical presentation", main= 'investigation of gastroenteritis outbreak', col = c("red", "orange", "green"))
+legend('top', c("<1 glasses/day", "<4 glasses/day", "1 to 4 glasses/day"), fill = c("red", "orange", "green"))
+
+# statistical test
+z <- chisq.test(y, correct = TRUE)
+z
+```
+## assumptions that underly the test
+* two categorical variables from a single population
+* used to determine whether there is an association between two variables
+
+## interpretation of outcomes
+* p< 0.05, therefore reject the null hypothesis and accept the alternative hypothesis
+# Nausea
+
+## null hypothesis
+* emetogenic chemotherapy for breast cancer does not cause nausea
+
+## alternative hypothesis
+* emetogenic chemotherapy for breast cancer causes nausea
+```{r data_tidy, echo= TRUE}
+# read nausea
+x <- read.csv('nausea.csv')
+
+# tidy the data
+# changed the 40 from row 8, column 3 to 4, because I think that might be a typo, seeing that the scale goes from 0-6
+x[8,3] = 4
+x
+
+# plotting data
+plot(x$Nausea_before~x$Patient, type = "l", ylim = c(0,6), xlab = "patient", ylab = "nausea score", col = "purple", main = 'rating of nausea before and after receiving chemotherapy')
+lines(x$Nausea_after, col = "pink")
+legend("center", c("Nausea_before", "Nausea_after"), fill = c("purple", "pink"))
+
+#statistical test
+wilcox.test(x$Nausea_before,x$Nausea_after, paired = TRUE)
+```
+## assumption that underlies the test
+* the data is non-parametric
+* two measurements taken from the same individual
+
+## interpretation of the outcome
+* p< 0.05, therefore reject null hypothesis and accept alternative hypothesis
+
+
