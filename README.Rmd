@@ -61,14 +61,14 @@ summarise(df_2, mean = mean(Value))
 
 ```
 Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
-# Chicken Weights
 
+# Chicken Weights
 ## null hypothesis
 * chick weights are not dependent on the feed
 
 ## alternative hypothesis
 * chick weights are dependent on the feed
-```{r data_tidy, echo=TRUE}
+```{r echo=TRUE}
 # read chick weight
 x <- read.csv('chick-weights.csv')
 
@@ -91,9 +91,9 @@ summary(chickanova)
 
 ## alternative hypothesis
 * H1: drinking contaminated water does cause gastroenteritis
-```{r data_tidy, echo=TRUE}
+```{r echo=TRUE}
 # read outbreak of gastroenteritis
-x <- read.csv('gastroenteritis.csv')
+x <- read.csv('file:///E:/stats assignment/gastroenteritis (1).csv')
 
 #tidy the data
 y <- xtabs(~Consumption + Outcome, data = x)
@@ -101,7 +101,7 @@ y
 
 #plotting data
 barplot(y, beside = TRUE, ylab = 'water consumption', xlab = "clinical presentation", main= 'investigation of gastroenteritis outbreak', col = c("red", "orange", "green"))
-legend('top', c("<1 glasses/day", "<4 glasses/day", "1 to 4 glasses/day"), fill = c("red", "orange", "green"))
+legend('top', c("<1 glasses/day", ">4 glasses/day", "1 to 4 glasses/day"), fill = c("red", "orange", "green"))
 
 # statistical test
 z <- chisq.test(y, correct = TRUE)
@@ -113,14 +113,14 @@ z
 
 ## interpretation of outcomes
 * p< 0.05, therefore reject the null hypothesis and accept the alternative hypothesis
-# Nausea
 
+# Nausea
 ## null hypothesis
 * emetogenic chemotherapy for breast cancer does not cause nausea
 
 ## alternative hypothesis
 * emetogenic chemotherapy for breast cancer causes nausea
-```{r data_tidy, echo= TRUE}
+```{r echo= TRUE}
 # read nausea
 x <- read.csv('nausea.csv')
 
